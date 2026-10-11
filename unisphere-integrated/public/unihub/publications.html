@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Publications & Papers | Chanakya University</title>
+  <!-- Google Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=1785563213">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-section">
+        <div class="brand-logo-badge">
+          <img src="logo.svg" alt="Chanakya University Logo" class="brand-logo-img" onerror="this.src='logo.jpg'">
+        </div>
+        <div class="brand-text">
+          <h1>Chanakya University</h1>
+          <p>Publications & Scholarly Papers Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i> Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Bar -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-users"></i> Faculty Directory</a>
+        <a href="projects.html" class="nav-link"><i class="fa-solid fa-flask"></i> Research Projects</a>
+        <a href="publications.html" class="nav-link active"><i class="fa-solid fa-book-bookmark"></i> Publications & Papers</a>
+        <a href="international.html" class="nav-link"><i class="fa-solid fa-globe"></i> International Collaborations</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Publications Layout -->
+  <main class="main-layout">
+
+    <div class="page-heading">
+      <h2>Publications &amp; Scholarly Papers</h2>
+      <p>Scholarly publications by domain, school and author. Use Upload to add a research paper.</p>
+    </div>
+
+    <!-- KPI Metric Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card gold">
+        <div class="kpi-icon"><i class="fa-solid fa-book-open"></i></div>
+        <div class="kpi-info">
+          <h4>Total Publications Recorded</h4>
+          <div class="kpi-num" id="kpiTotalPubs">0</div>
+        </div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="kpi-info">
+          <h4>Publishing Authors / Faculty</h4>
+          <div class="kpi-num" id="kpiAuthors">0</div>
+        </div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-icon"><i class="fa-solid fa-earth-americas"></i></div>
+        <div class="kpi-info">
+          <h4>International Exposure Pubs</h4>
+          <div class="kpi-num" id="kpiIntlPubs">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Analytics Charts (3 Interactive Grid Charts) -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-column"></i> Publications Volume by Official School</h3>
+        <div class="chart-container">
+          <canvas id="pubSchoolChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-pie"></i> Publications by Domain Category</h3>
+        <div class="chart-container">
+          <canvas id="pubCategoryChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-user-graduate"></i> Top Publishing Faculty Authors</h3>
+        <div class="chart-container">
+          <canvas id="pubAuthorChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-section">
+      <div class="search-bar-row" style="display: flex; gap: 1rem; align-items: center;">
+        <div class="search-input-wrapper" style="flex: 1;">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="pubSearchInput" placeholder="Search publications by title, author name, journal, keywords...">
+        </div>
+        <button id="resetPubFiltersBtn" class="download-btn" style="background: #e2e8f0; color: var(--primary); font-size: 0.85rem; padding: 0.8rem 1.25rem; white-space: nowrap;">
+          <i class="fa-solid fa-rotate-left"></i> Clear All Filters
+        </button>
+      </div>
+
+      <div class="filter-grid" style="margin-top: 1rem;">
+        <div class="filter-group">
+          <label>Official School</label>
+          <select id="pubSchoolFilter" class="filter-select">
+            <option value="ALL">All Schools</option>
+            <option value="School of Arts, Humanities and Social Sciences">School of Arts, Humanities and Social Sciences</option>
+            <option value="School of Management Sciences">School of Management Sciences</option>
+            <option value="School of Mathematics and Natural Sciences">School of Mathematics and Natural Sciences</option>
+            <option value="School of Law, Governance and Public Policy">School of Law, Governance and Public Policy</option>
+            <option value="School of Biosciences">School of Biosciences</option>
+            <option value="School of Engineering">School of Engineering</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Category Domain</label>
+          <select id="pubCategoryFilter" class="filter-select">
+            <option value="ALL">All Categories</option>
+            <option value="General Research">General Research</option>
+            <option value="Law">Law</option>
+            <option value="Public Health">Public Health</option>
+            <option value="Sustainability">Sustainability</option>
+            <option value="Science Tech">Science Tech</option>
+            <option value="Humanities">Humanities</option>
+            <option value="IKS">IKS</option>
+            <option value="Management">Management</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <div class="results-meta">
+      <span id="pubsCount">Showing 0 publications</span>
+    </div>
+
+    <div class="table-scroll-hint">
+      <i class="fa-solid fa-arrows-left-right"></i> Scroll table horizontally to view full details
+    </div>
+
+    <!-- Data Table -->
+    <div class="data-table-container">
+      <table class="custom-data-table">
+        <thead>
+          <tr>
+            <th style="width: 38%;">Publication Title & Citation</th>
+            <th style="width: 20%;">Author / Faculty Name</th>
+            <th style="width: 20%;">School</th>
+            <th style="width: 15%;">Domain Category</th>
+            <th style="width: 7%;">Year</th>
+          </tr>
+        </thead>
+        <tbody id="pubsTableBody">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let allData = [];
+    let allPubsList = [];
+    let filteredPubs = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const btn = document.getElementById('mobileMenuBtn');
+      const nav = document.querySelector('.main-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          nav.classList.toggle('mobile-active');
+          btn.innerHTML = nav.classList.contains('mobile-active')
+            ? '<i class="fa-solid fa-xmark"></i> Close'
+            : '<i class="fa-solid fa-bars"></i> Menu';
+        });
+      }
+
+      try {
+        const resp = await fetch('data.json?v=' + Date.now());
+        allData = await resp.json();
+
+        // uploads whose author is not a directory profile (stored in the database)
+        let unlinked = { publications: [] };
+        try { unlinked = await (await fetch('/api/unlinked?v=' + Date.now())).json(); } catch (e) {}
+
+        allPubsList = [];
+        allData.forEach(p => {
+          (p.publications_list || []).forEach(pb => {
+            allPubsList.push({
+              ...pb,
+              faculty_id: p.id,
+              faculty_name: p.name,
+              school: p.school || '',
+              category: pb.category || p.primary_category || 'General Research'
+            });
+          });
+        });
+
+        (unlinked.publications || []).forEach(pb => {
+          allPubsList.push({ ...pb, school: pb.school || '', category: pb.category || 'General Research' });
+        });
+        // newest uploads first, then the original records in their usual order
+        allPubsList = [
+          ...allPubsList.filter(p => p.submitted_at).sort((a, b) => b.submitted_at.localeCompare(a.submitted_at)),
+          ...allPubsList.filter(p => !p.submitted_at)
+        ];
+
+        filteredPubs = [...allPubsList];
+
+        updateKPIs();
+        renderCharts();
+        renderTable();
+        setupFilters();
+      } catch (err) {
+        console.error("Error loading publication data:", err);
+      }
+    });
+
+    function updateKPIs() {
+      document.getElementById('kpiTotalPubs').textContent = allPubsList.length;
+      const authors = new Set(allPubsList.map(p => p.faculty_id || p.faculty_name));
+      document.getElementById('kpiAuthors').textContent = authors.size;
+      const intlPubs = allPubsList.filter(p => {
+        const fac = allData.find(f => f.id === p.faculty_id);
+        return fac && fac.has_international_exp;
+      });
+      document.getElementById('kpiIntlPubs').textContent = intlPubs.length;
+    }
+
+    function handleHoverPointer(e, elements) {
+      e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+    }
+
+    function renderCharts() {
+      // 1. Category Chart
+      const catCounts = {};
+      allPubsList.forEach(p => {
+        catCounts[p.category] = (catCounts[p.category] || 0) + 1;
+      });
+
+      const catCtx = document.getElementById('pubCategoryChart').getContext('2d');
+      new Chart(catCtx, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(catCounts),
+          datasets: [{
+            data: Object.values(catCounts),
+            backgroundColor: ['#002561', '#b8860b', '#10b981', '#0284c7', '#8b5cf6', '#f59e0b', '#ec4899'],
+            hoverOffset: 12,
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const catName = Object.keys(catCounts)[elements[0].index];
+              document.getElementById('pubCategoryFilter').value = catName;
+              applyPubFilters();
+              document.getElementById('pubsTableBody').scrollIntoView({ behavior: 'smooth' });
+            }
+          },
+          plugins: {
+            legend: { position: 'right', labels: { color: '#334155', font: { weight: '600' } } },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Publications`,
+                    ` Click slice to filter table`
+                  ];
+                }
+              }
+            }
+          }
+        }
+      });
+
+      // 2. School Chart
+      const schoolCounts = {};
+      allPubsList.forEach(p => {
+        const sch = p.school.replace('School of ', '');
+        schoolCounts[sch] = (schoolCounts[sch] || 0) + 1;
+      });
+
+      const schCtx = document.getElementById('pubSchoolChart').getContext('2d');
+      new Chart(schCtx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(schoolCounts),
+          datasets: [{
+            label: 'Publications Count',
+            data: Object.values(schoolCounts),
+            backgroundColor: '#0284c7',
+            hoverBackgroundColor: '#0369a1',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const label = Object.keys(schoolCounts)[elements[0].index];
+              const fullSchool = allData.find(p => p.school.includes(label))?.school;
+              if (fullSchool) {
+                document.getElementById('pubSchoolFilter').value = fullSchool;
+                applyPubFilters();
+                document.getElementById('pubsTableBody').scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Papers`,
+                    ` Click bar to filter table`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b', font: { weight: 'bold', size: 10 } } },
+            y: { ticks: { color: '#64748b' } }
+          }
+        }
+      });
+
+      // 3. Top Publishing Authors Chart (Horizontal Bar Chart)
+      const authorCounts = {};
+      allPubsList.forEach(p => {
+        authorCounts[p.faculty_name] = (authorCounts[p.faculty_name] || 0) + 1;
+      });
+
+      const sortedAuthors = Object.entries(authorCounts)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 8);
+
+      const authorNames = sortedAuthors.map(item => item[0]);
+      const authorPubCounts = sortedAuthors.map(item => item[1]);
+
+      const autCtx = document.getElementById('pubAuthorChart').getContext('2d');
+      new Chart(autCtx, {
+        type: 'bar',
+        data: {
+          labels: authorNames,
+          datasets: [{
+            label: 'Publications Count',
+            data: authorPubCounts,
+            backgroundColor: '#b8860b',
+            hoverBackgroundColor: '#002561',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const selectedAuthor = authorNames[elements[0].index];
+              document.getElementById('pubSearchInput').value = selectedAuthor;
+              applyPubFilters();
+              document.getElementById('pubsTableBody').scrollIntoView({ behavior: 'smooth' });
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Scholarly Papers`,
+                    ` Click bar to search author papers`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b' } },
+            y: { ticks: { color: '#64748b', font: { weight: 'bold', size: 10 } } }
+          }
+        }
+      });
+    }
+
+    function setupFilters() {
+      document.getElementById('pubSearchInput').addEventListener('input', applyPubFilters);
+      document.getElementById('pubSchoolFilter').addEventListener('change', applyPubFilters);
+      document.getElementById('pubCategoryFilter').addEventListener('change', applyPubFilters);
+
+      document.getElementById('resetPubFiltersBtn').addEventListener('click', () => {
+        document.getElementById('pubSearchInput').value = '';
+        document.getElementById('pubSchoolFilter').value = 'ALL';
+        document.getElementById('pubCategoryFilter').value = 'ALL';
+        applyPubFilters();
+      });
+    }
+
+    function applyPubFilters() {
+      const q = document.getElementById('pubSearchInput').value.toLowerCase().trim();
+      const sch = document.getElementById('pubSchoolFilter').value;
+      const cat = document.getElementById('pubCategoryFilter').value;
+
+      filteredPubs = allPubsList.filter(pb => {
+        if (sch !== 'ALL' && pb.school !== sch) return false;
+        if (cat !== 'ALL' && pb.category !== cat) return false;
+        if (q) {
+          const haystack = `${pb.title} ${pb.faculty_name} ${pb.school} ${pb.full_text}`.toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      renderTable();
+    }
+
+    function renderTable() {
+      document.getElementById('pubsCount').textContent = `Showing ${filteredPubs.length} of ${allPubsList.length} publications`;
+      const tbody = document.getElementById('pubsTableBody');
+      
+      if (filteredPubs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No publications matching your search filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filteredPubs.map(pb => {
+        const titleText = (pb.title || '').trim();
+        const fullText = (pb.full_text || '').trim();
+        const tNorm = titleText.replace(/\.\.\.$/, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const ftNorm = fullText.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const hasExtraCitation = fullText && tNorm !== ftNorm && !ftNorm.startsWith(tNorm.slice(0, 25)) && !tNorm.startsWith(ftNorm.slice(0, 25));
+        
+        return `
+        <tr>
+          <td>
+            <strong style="color: var(--primary); font-size: 0.95rem;">${titleText}</strong>${pb.submitted_at ? ' <span class="new-badge">New</span>' : ''}
+            ${hasExtraCitation ? `<p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${fullText}</p>` : ''}
+            ${pb.about ? `<p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem;">${pb.about}</p>` : ''}
+            ${pb.link ? `<a class="upload-link" href="${pb.link}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> View paper</a>` : ''}
+          </td>
+          <td>
+            ${pb.faculty_id
+              ? `<a href="profile.html?id=${pb.faculty_id}" style="color: var(--primary); font-weight: 800; text-decoration: underline;">${pb.faculty_name}</a>`
+              : `<span style="color: var(--primary); font-weight: 800;">${pb.faculty_name}</span>`}
+          </td>
+          <td style="white-space: nowrap;"><span class="school-tag" style="font-size: 0.72rem; padding: 0.25rem 0.6rem; display: inline-block;">${pb.school.replace('School of ', '')}</span></td>
+          <td style="white-space: nowrap;"><span class="badge-cat" style="font-size: 0.72rem; padding: 0.25rem 0.6rem; display: inline-block; white-space: nowrap;">${pb.category}</span></td>
+          <td style="text-align: center;"><strong style="color: var(--accent-gold);">${pb.year}</strong></td>
+        </tr>
+        `;
+      }).join('');
+    }
+  </script>
+  <script src="upload.js"></script>
+</body>
+</html>

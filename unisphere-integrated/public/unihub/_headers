@@ -1,0 +1,4 @@
+# Netlify Cache Control Headers
+/data.json
+  Cache-Control: no-cache, no-store, must-revalidate, max-age=0
+  Access-Control-Allow-Origin: *

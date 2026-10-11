@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Faculty Profile | Chanakya University</title>
+  <!-- Google Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=1785563213">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-section">
+        <div class="brand-logo-badge">
+          <img src="logo.svg" alt="Chanakya University Logo" class="brand-logo-img" onerror="this.src='logo.jpg'">
+        </div>
+        <div class="brand-text">
+          <h1>Chanakya University</h1>
+          <p>Faculty & Research Directory Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i> Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Bar -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-users"></i> Faculty Directory</a>
+        <a href="projects.html" class="nav-link"><i class="fa-solid fa-flask"></i> Research Projects</a>
+        <a href="publications.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Publications & Papers</a>
+        <a href="international.html" class="nav-link"><i class="fa-solid fa-globe"></i> International Collaborations</a>
+        <a href="#" class="nav-link active"><i class="fa-solid fa-user-gear"></i> Faculty Profile View</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Profile Layout -->
+  <main class="main-layout">
+
+    <div>
+      <a href="index.html" class="back-directory-link">
+        <i class="fa-solid fa-arrow-left"></i> Back to Faculty Directory
+      </a>
+    </div>
+
+    <!-- Hero Banner -->
+    <section class="profile-page-hero">
+      <img src="" id="pAvatar" class="profile-page-avatar" alt="Avatar" onerror="this.src='https://chanakyauniversity.edu.in/wp-content/uploads/2026/02/default-img.jpg'">
+      <div class="profile-page-details">
+        <h1 id="pName" class="profile-page-name">Loading Profile...</h1>
+        <p id="pDesignation" class="profile-page-designation"></p>
+        <span id="pSchool" class="school-tag"></span>
+
+        <div class="profile-page-meta">
+          <span style="font-weight: 600; color: var(--text-muted);"><i class="fa-solid fa-envelope" style="color: var(--primary);"></i> <span id="pEmail"></span></span>
+          <span style="font-weight: 600; color: var(--text-muted);"><i class="fa-solid fa-graduation-cap" style="color: var(--accent-gold);"></i> <span id="pQualHeader"></span></span>
+        </div>
+
+        <div class="tag-cloud" id="pTags" style="margin-top: 1rem;"></div>
+        
+        <div style="margin-top: 1.25rem;">
+          <a href="#" id="pOfficialUrl" target="_blank" class="download-btn" style="background: var(--primary); color: #ffffff; font-size: 0.85rem; padding: 0.65rem 1.25rem;">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Official University Profile Page
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Profile Navigation Tabs -->
+    <div class="tabs-wrapper">
+      <div class="profile-tabs-bar">
+        <button class="profile-tab-btn active" data-tab="tabQual"><i class="fa-solid fa-graduation-cap"></i> Qualifications & Expertise</button>
+        <button class="profile-tab-btn" data-tab="tabPubs"><i class="fa-solid fa-book-open"></i> Publications (<span id="pubCount">0</span>)</button>
+        <button class="profile-tab-btn" data-tab="tabProjects"><i class="fa-solid fa-flask"></i> Projects & Grants (<span id="projCount">0</span>)</button>
+        <button class="profile-tab-btn" data-tab="tabAchievements"><i class="fa-solid fa-award"></i> Achievements</button>
+        <button class="profile-tab-btn" data-tab="tabIntl"><i class="fa-solid fa-globe"></i> International Experience</button>
+      </div>
+    </div>
+
+    <!-- Tab Contents -->
+    <section id="tabQual" class="profile-tab-content active">
+      <div class="modal-sec-title"><i class="fa-solid fa-graduation-cap"></i> Primary Qualifications</div>
+      <p id="pQual" class="modal-sec-text" style="margin-top: 0.5rem;"></p>
+
+      <div class="modal-sec-title" style="margin-top: 1.5rem;"><i class="fa-solid fa-lightbulb"></i> Areas of Specialization & Expertise</div>
+      <p id="pExpertise" class="modal-sec-text" style="margin-top: 0.5rem;"></p>
+    </section>
+
+    <section id="tabPubs" class="profile-tab-content">
+      <div class="modal-sec-title"><i class="fa-solid fa-book-open"></i> Research Papers & Publications</div>
+      <div id="pPubsContainer" style="margin-top: 1rem;"></div>
+    </section>
+
+    <section id="tabProjects" class="profile-tab-content">
+      <div class="modal-sec-title"><i class="fa-solid fa-flask"></i> Sponsored Research Projects & Grants</div>
+      <div id="pProjectsContainer" style="margin-top: 1rem;"></div>
+    </section>
+
+    <section id="tabAchievements" class="profile-tab-content">
+      <div class="modal-sec-title"><i class="fa-solid fa-award"></i> Awards, Honors & Recognitions</div>
+      <p id="pAchievements" class="modal-sec-text" style="margin-top: 0.5rem;"></p>
+    </section>
+
+    <section id="tabIntl" class="profile-tab-content">
+      <div class="modal-sec-title"><i class="fa-solid fa-globe"></i> International Experience & Global Collaborations</div>
+      <p id="pIntl" class="modal-sec-text" style="margin-top: 0.5rem;"></p>
+    </section>
+
+    <!-- Similar Faculty Section -->
+    <section class="similar-section">
+      <div class="modal-sec-title"><i class="fa-solid fa-users"></i> Similar Faculty & Researchers in <span id="pSchoolLabel">this School</span></div>
+      <div class="similar-grid" id="similarGridPage"></div>
+    </section>
+
+  </main>
+
+  <script>
+    let allData = [];
+    let currentProfile = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const btn = document.getElementById('mobileMenuBtn');
+      const nav = document.querySelector('.main-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          nav.classList.toggle('mobile-active');
+          btn.innerHTML = nav.classList.contains('mobile-active')
+            ? '<i class="fa-solid fa-xmark"></i> Close'
+            : '<i class="fa-solid fa-bars"></i> Menu';
+        });
+      }
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const profileId = urlParams.get('id') || 'naresh_dixit_p_s_';
+
+      try {
+        const resp = await fetch('data.json?v=' + Date.now());
+        allData = await resp.json();
+        
+        currentProfile = allData.find(p => p.id === profileId) || allData[0];
+        renderProfile(currentProfile);
+      } catch (err) {
+        console.error("Error loading profile data:", err);
+      }
+
+      // Tab switching
+      document.querySelectorAll('.profile-tab-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          document.querySelectorAll('.profile-tab-btn').forEach(b => b.classList.remove('active'));
+          document.querySelectorAll('.profile-tab-content').forEach(c => c.classList.remove('active'));
+          
+          btn.classList.add('active');
+          const target = btn.dataset.tab;
+          document.getElementById(target).classList.add('active');
+        });
+      });
+    });
+
+    function renderProfile(p) {
+      document.title = `${p.name} - Faculty Profile | Chanakya University`;
+
+      document.getElementById('pAvatar').src = p.image_url;
+      document.getElementById('pName').textContent = p.name;
+      document.getElementById('pDesignation').textContent = `${p.designation} (${p.type})`;
+      document.getElementById('pSchool').textContent = p.school;
+      document.getElementById('pSchoolLabel').textContent = p.school;
+
+      document.getElementById('pEmail').textContent = p.email || 'Email available via University Directory';
+      document.getElementById('pQualHeader').textContent = p.qualifications || 'Ph.D. / Academic Degree';
+
+      document.getElementById('pOfficialUrl').href = p.profile_url;
+
+      // Category tags
+      const tagsContainer = document.getElementById('pTags');
+      const uniqueCats = Array.from(new Set(p.categories || []));
+      tagsContainer.innerHTML = [
+        ...uniqueCats.map(c => `<span class="badge-cat">${c}</span>`),
+        p.has_international_exp ? `<span class="badge-intl"><i class="fa-solid fa-globe"></i> Intl Experience</span>` : ''
+      ].join('');
+
+      function formatBullets(text) {
+        if (!text || text === 'N/A') return '<p class="modal-sec-text">N/A</p>';
+        const lines = text.split('\n').filter(l => l.trim());
+        return lines.map(line => `<p style="margin-bottom: 0.6rem; line-height: 1.6; color: var(--text-dark);">${line}</p>`).join('');
+      }
+
+      // Tab contents
+      document.getElementById('pQual').innerHTML = formatBullets(p.qualifications);
+      document.getElementById('pExpertise').innerHTML = formatBullets(p.areas_of_expertise);
+      document.getElementById('pAchievements').innerHTML = formatBullets(p.achievements);
+      document.getElementById('pIntl').innerHTML = formatBullets(p.has_international_exp ? p.international_evidence : 'No explicit international credentials listed.');
+
+      // Publications list
+      const newestFirst = (x, y) => (y.submitted_at ? 1 : 0) - (x.submitted_at ? 1 : 0) || (y.submitted_at || '').localeCompare(x.submitted_at || '');
+      const pubs = [...(p.publications_list || [])].sort(newestFirst);   // uploads first
+      document.getElementById('pubCount').textContent = pubs.length;
+      const pubContainer = document.getElementById('pPubsContainer');
+      if (pubs.length === 0) {
+        pubContainer.innerHTML = `<p class="modal-sec-text">No publications record formatted yet.</p>`;
+      } else {
+        pubContainer.innerHTML = pubs.map(pb => {
+          const titleText = (pb.title || '').trim();
+          const fullText = (pb.full_text || '').trim();
+          const tNorm = titleText.replace(/\.\.\.$/, '').toLowerCase().replace(/[^a-z0-9]/g, '');
+          const ftNorm = fullText.toLowerCase().replace(/[^a-z0-9]/g, '');
+          const hasExtraCitation = fullText && tNorm !== ftNorm && !ftNorm.startsWith(tNorm.slice(0, 25)) && !tNorm.startsWith(ftNorm.slice(0, 25));
+          
+          return `
+            <div class="pub-item-card">
+              <h4 class="pub-item-title">${titleText}</h4>
+              ${hasExtraCitation ? `<p class="pub-item-text">${fullText}</p>` : ''}
+              ${pb.about ? `<p class="pub-item-text">${pb.about}</p>` : ''}
+              ${pb.link ? `<a class="upload-link" href="${pb.link}" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-arrow-up-right-from-square"></i> View paper</a>` : ''}
+              <div class="pub-item-meta">
+                <span class="badge-cat"><i class="fa-solid fa-calendar-days"></i> ${pb.year}</span>
+                <span class="badge-cluster">${pb.category}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Projects list
+      const projs = [...(p.projects_list || [])].sort(newestFirst);
+      document.getElementById('projCount').textContent = projs.length;
+      const projContainer = document.getElementById('pProjectsContainer');
+      if (projs.length === 0) {
+        projContainer.innerHTML = `<p class="modal-sec-text">No research projects record formatted yet.</p>`;
+      } else {
+        projContainer.innerHTML = projs.map(pj => `
+          <div class="project-item-card">
+            <h4 class="project-item-title">${pj.title}</h4>
+            <p class="project-item-text">${pj.full_text}</p>
+            ${pj.link ? `<a class="upload-link" href="${pj.link}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View on GitHub</a>` : ''}
+            <div class="project-item-meta">
+              <span class="badge-cluster"><i class="fa-solid fa-building-columns"></i> ${pj.funding_agency}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Render Similar Faculty Cards (Prioritize same school first, exclude current profile)
+      let similar = allData.filter(other => other.id !== p.id && other.school === p.school);
+      if (similar.length < 3) {
+        const extra = allData.filter(other => other.id !== p.id && other.school !== p.school && (other.primary_category === p.primary_category || other.categories.some(c => p.categories.includes(c))));
+        similar = [...similar, ...extra];
+      }
+      similar = similar.slice(0, 3);
+
+      const similarGrid = document.getElementById('similarGridPage');
+      
+      if (similar.length === 0) {
+        similarGrid.innerHTML = `<div style="color: var(--text-muted); font-size: 0.9rem;">No other faculty listed in this section.</div>`;
+      } else {
+        similarGrid.innerHTML = similar.map(s => `
+          <div class="similar-card" onclick="window.location.href='profile.html?id=${s.id}'">
+            <img src="${s.image_url}" class="similar-avatar" onerror="this.src='https://chanakyauniversity.edu.in/wp-content/uploads/2026/02/default-img.jpg'">
+            <div class="similar-info">
+              <h5>${s.name}</h5>
+              <p>${s.designation}</p>
+              <span class="similar-school-tag">${s.school.replace('School of ', '')}</span>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+  </script>
+  <script src="upload.js"></script>
+</body>
+</html>

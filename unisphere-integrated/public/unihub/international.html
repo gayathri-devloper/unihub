@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>International Experience & Collaborations | Chanakya University</title>
+  <!-- Google Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=1785563213">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-section">
+        <div class="brand-logo-badge">
+          <img src="logo.svg" alt="Chanakya University Logo" class="brand-logo-img" onerror="this.src='logo.jpg'">
+        </div>
+        <div class="brand-text">
+          <h1>Chanakya University</h1>
+          <p>Global Engagement & International Track Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i> Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Bar -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-users"></i> Faculty Directory</a>
+        <a href="projects.html" class="nav-link"><i class="fa-solid fa-flask"></i> Research Projects</a>
+        <a href="publications.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Publications & Papers</a>
+        <a href="international.html" class="nav-link active"><i class="fa-solid fa-globe"></i> International Collaborations</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main International Layout -->
+  <main class="main-layout">
+
+    <div class="page-heading">
+      <h2>International Collaborations Tracker</h2>
+      <p>Faculty with international degrees, fellowships, postdocs and visiting appointments.</p>
+    </div>
+
+    <!-- KPI Metric Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card green">
+        <div class="kpi-icon"><i class="fa-solid fa-earth-americas"></i></div>
+        <div class="kpi-info">
+          <h4>Faculty with Intl Exposure</h4>
+          <div class="kpi-num" id="kpiIntlTotal">0</div>
+        </div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-icon"><i class="fa-solid fa-award"></i></div>
+        <div class="kpi-info">
+          <h4>Global Fellowships / Postdocs</h4>
+          <div class="kpi-num" id="kpiFellowships">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Analytics Charts (2 Interactive Charts) -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-column"></i> International Exposure by Official School</h3>
+        <div class="chart-container">
+          <canvas id="intlChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; border-bottom: 2px solid var(--accent-warm); padding-bottom: 0.5rem; margin-bottom: 1rem;">
+          <h3 style="border-bottom: none; margin-bottom: 0; padding-bottom: 0;"><i class="fa-solid fa-chart-pie"></i> International Track Credentials Breakdown</h3>
+          <select id="chartCredSelect" class="filter-select" style="width: auto; font-size: 0.85rem; padding: 0.4rem 0.85rem; border: 2px solid var(--primary); background: #ffffff; color: var(--primary); font-weight: 700; border-radius: 8px;">
+            <option value="ALL">All Credential Tracks...</option>
+            <option value="phd">Foreign PhD / Degree</option>
+            <option value="postdoc">Overseas Postdoc / Research</option>
+            <option value="fellowship">Global Fellowship (Fulbright / DAAD)</option>
+            <option value="visiting">Visiting Appointment</option>
+          </select>
+        </div>
+        <div class="chart-container" style="position: relative;">
+          <canvas id="intlCredentialChart" style="cursor: pointer;"></canvas>
+        </div>
+        <p style="text-align:center; margin-top: 0.6rem; font-size: 0.8rem; color: #64748b;">
+          <i class="fa-solid fa-hand-pointer" style="color:#10b981;"></i>
+          <strong>Click any chart slice or select from dropdown</strong> to filter faculty cards
+        </p>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-section">
+      <div class="search-bar-row" style="display: flex; gap: 1rem; align-items: center;">
+        <div class="search-input-wrapper" style="flex: 1;">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="intlSearchInput" placeholder="Search by faculty name, foreign university, fellowship, country, keywords...">
+        </div>
+        <button id="resetIntlFiltersBtn" class="download-btn" style="background: #e2e8f0; color: var(--primary); font-size: 0.85rem; padding: 0.8rem 1.25rem; white-space: nowrap;">
+          <i class="fa-solid fa-rotate-left"></i> Clear All Filters
+        </button>
+      </div>
+
+      <div class="filter-grid" style="margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 1rem;">
+        <div class="filter-group" style="flex: 1; min-width: 220px;">
+          <label><i class="fa-solid fa-building-columns"></i> Official School</label>
+          <select id="intlSchoolFilter" class="filter-select">
+            <option value="ALL">All Schools</option>
+            <option value="School of Arts, Humanities and Social Sciences">School of Arts, Humanities and Social Sciences</option>
+            <option value="School of Management Sciences">School of Management Sciences</option>
+            <option value="School of Mathematics and Natural Sciences">School of Mathematics and Natural Sciences</option>
+            <option value="School of Law, Governance and Public Policy">School of Law, Governance and Public Policy</option>
+            <option value="School of Biosciences">School of Biosciences</option>
+            <option value="School of Engineering">School of Engineering</option>
+          </select>
+        </div>
+        <div class="filter-group" style="flex: 1; min-width: 220px;">
+          <label><i class="fa-solid fa-certificate"></i> Credential Type Track</label>
+          <select id="intlCredentialFilter" class="filter-select">
+            <option value="ALL">All Credential Types</option>
+            <option value="phd">Foreign PhD / Degree</option>
+            <option value="postdoc">Overseas Postdoc / Research</option>
+            <option value="fellowship">Global Fellowship (Fulbright / DAAD)</option>
+            <option value="visiting">Visiting Appointment</option>
+          </select>
+        </div>
+        <div class="filter-group" style="flex: 1; min-width: 220px;">
+          <label><i class="fa-solid fa-layer-group"></i> Discipline Domain</label>
+          <select id="intlCategoryFilter" class="filter-select">
+            <option value="ALL">All Domains</option>
+            <option value="Science Tech">Science Tech</option>
+            <option value="Law">Law & Governance</option>
+            <option value="Management">Management Sciences</option>
+            <option value="Humanities">Humanities & Social Sciences</option>
+            <option value="Public Health">Public Health & Biosciences</option>
+            <option value="Sustainability">Sustainability & Environment</option>
+            <option value="IKS">Indian Knowledge Systems</option>
+          </select>
+        </div>
+        <div class="filter-group" style="flex: 1; min-width: 220px;">
+          <label><i class="fa-solid fa-earth-americas"></i> Global Region / Country</label>
+          <select id="intlRegionFilter" class="filter-select">
+            <option value="ALL">All Global Regions</option>
+            <option value="usa">United States (USA)</option>
+            <option value="uk">United Kingdom (UK)</option>
+            <option value="europe">Europe (France / Germany / Switzerland)</option>
+            <option value="asia">Asia (Japan / Singapore / China)</option>
+            <option value="australia">Australia & Oceania</option>
+            <option value="americas">Canada & Americas</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <div class="results-meta">
+      <span id="intlCount">Showing 0 international profiles</span>
+    </div>
+
+    <!-- Cards Grid -->
+    <section class="cards-grid" id="intlCardsGrid">
+      <!-- Dynamically populated -->
+    </section>
+
+  </main>
+
+  <script>
+    let allData = [];
+    let intlProfiles = [];
+    let filteredIntl = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const btn = document.getElementById('mobileMenuBtn');
+      const nav = document.querySelector('.main-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          nav.classList.toggle('mobile-active');
+          btn.innerHTML = nav.classList.contains('mobile-active')
+            ? '<i class="fa-solid fa-xmark"></i> Close'
+            : '<i class="fa-solid fa-bars"></i> Menu';
+        });
+      }
+
+      try {
+        const resp = await fetch('data.json?v=' + Date.now());
+        allData = await resp.json();
+
+        intlProfiles = allData.filter(p => p.has_international_exp === true);
+        filteredIntl = [...intlProfiles];
+
+        updateKPIs();
+        renderCharts();
+        renderCards();
+        setupFilters();
+      } catch (err) {
+        console.error("Error loading international profile data:", err);
+      }
+    });
+
+    function updateKPIs() {
+      document.getElementById('kpiIntlTotal').textContent = intlProfiles.length;
+      
+      const fellowships = intlProfiles.filter(p => p.intl_track_category === 'postdoc' || p.intl_track_category === 'fellowship');
+      document.getElementById('kpiFellowships').textContent = fellowships.length;
+    }
+
+    function anyKeyword(text, keywords) {
+      const lower = (text || '').toLowerCase();
+      return keywords.some(k => lower.includes(k));
+    }
+
+    function handleHoverPointer(e, elements) {
+      e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+    }
+
+    function renderCharts() {
+      // 1. School Bar Chart
+      const counts = {};
+      intlProfiles.forEach(p => {
+        const sch = (p.school || 'Unassigned').replace('School of ', '');
+        counts[sch] = (counts[sch] || 0) + 1;
+      });
+
+      const ctx = document.getElementById('intlChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(counts),
+          datasets: [{
+            label: 'International Profiles',
+            data: Object.values(counts),
+            backgroundColor: '#10b981',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const label = Object.keys(counts)[elements[0].index];
+              const fullSchool = intlProfiles.find(p => p.school.includes(label))?.school;
+              if (fullSchool) {
+                document.getElementById('intlSchoolFilter').value = fullSchool;
+                applyFilters();
+                document.getElementById('intlCardsGrid').scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Intl Track Members`,
+                    ` 👉 Click bar to filter profiles below!`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b', font: { weight: 'bold' } } },
+            y: { ticks: { color: '#64748b' } }
+          }
+        }
+      });
+
+      // 2. Credential Breakdown Chart — exact 1-to-1 track classification
+      const credCounts = {
+        'Foreign PhD / Degrees': intlProfiles.filter(p => p.intl_track_category === 'phd').length,
+        'Overseas Postdoc / Research': intlProfiles.filter(p => p.intl_track_category === 'postdoc').length,
+        'Global Fellowships': intlProfiles.filter(p => p.intl_track_category === 'fellowship').length,
+        'Visiting Appointments': intlProfiles.filter(p => p.intl_track_category === 'visiting').length
+      };
+
+      const credTypeMap = {
+        'Foreign PhD / Degrees': 'phd',
+        'Overseas Postdoc / Research': 'postdoc',
+        'Global Fellowships': 'fellowship',
+        'Visiting Appointments': 'visiting'
+      };
+
+      const credCtx = document.getElementById('intlCredentialChart').getContext('2d');
+      const credChart = new Chart(credCtx, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(credCounts),
+          datasets: [{
+            data: Object.values(credCounts),
+            backgroundColor: ['#10b981', '#0284c7', '#b8860b', '#8b5cf6'],
+            hoverBackgroundColor: ['#059669', '#0369a1', '#92700a', '#7c3aed'],
+            hoverOffset: 18,
+            borderWidth: 3,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const label = Object.keys(credCounts)[elements[0].index];
+              const credValue = credTypeMap[label] || 'ALL';
+              const sel = document.getElementById('intlCredentialFilter');
+              sel.value = credValue;
+              // Flash highlight on the dropdown
+              sel.style.border = '2px solid #10b981';
+              sel.style.boxShadow = '0 0 0 3px rgba(16,185,129,0.25)';
+              setTimeout(() => { sel.style.border = ''; sel.style.boxShadow = ''; }, 1500);
+              applyFilters();
+              setTimeout(() => {
+                document.getElementById('intlCardsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 200);
+            }
+          },
+          plugins: {
+            legend: {
+              position: 'right',
+              onClick: (e, legendItem, legend) => {
+                const label = legendItem.text;
+                const setCredFilter = (credValue) => {
+                document.getElementById('intlCredentialFilter').value = credValue;
+                document.getElementById('chartCredSelect').value = credValue;
+                const sel = document.getElementById('intlCredentialFilter');
+                sel.style.border = '2px solid #10b981';
+                sel.style.boxShadow = '0 0 0 3px rgba(16,185,129,0.25)';
+                setTimeout(() => { sel.style.border = ''; sel.style.boxShadow = ''; }, 1500);
+                applyFilters();
+                setTimeout(() => {
+                  document.getElementById('intlCardsGrid').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 200);
+              };
+
+              setCredFilter(credTypeMap[label] || 'ALL');
+              },
+              labels: {
+                color: '#334155',
+                font: { weight: '600', size: 12 },
+                padding: 16,
+                usePointStyle: true
+              }
+            },
+            tooltip: {
+              backgroundColor: 'rgba(15,23,42,0.92)',
+              titleColor: '#f1f5f9',
+              bodyColor: '#94a3b8',
+              padding: 12,
+              cornerRadius: 8,
+              callbacks: {
+                title: function(items) {
+                  return items[0].label;
+                },
+                label: function(context) {
+                  const total = Object.values(credCounts).reduce((a,b) => a+b, 0);
+                  const pct = total > 0 ? Math.round((context.raw / total) * 100) : 0;
+                  return [
+                    `  ${context.raw} faculty (${pct}%)`,
+                    `  👆 Click segment to filter below`
+                  ];
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function setupFilters() {
+      document.getElementById('intlSearchInput').addEventListener('input', applyFilters);
+      document.getElementById('intlSchoolFilter').addEventListener('change', applyFilters);
+      
+      const credFilter = document.getElementById('intlCredentialFilter');
+      const chartCredSelect = document.getElementById('chartCredSelect');
+      const catFilter = document.getElementById('intlCategoryFilter');
+      const regionFilter = document.getElementById('intlRegionFilter');
+
+      credFilter.addEventListener('change', () => {
+        chartCredSelect.value = credFilter.value;
+        applyFilters();
+      });
+
+      chartCredSelect.addEventListener('change', () => {
+        credFilter.value = chartCredSelect.value;
+        applyFilters();
+      });
+
+      if (catFilter) catFilter.addEventListener('change', applyFilters);
+      if (regionFilter) regionFilter.addEventListener('change', applyFilters);
+
+      document.getElementById('resetIntlFiltersBtn').addEventListener('click', () => {
+        document.getElementById('intlSearchInput').value = '';
+        document.getElementById('intlSchoolFilter').value = 'ALL';
+        document.getElementById('intlCredentialFilter').value = 'ALL';
+        document.getElementById('chartCredSelect').value = 'ALL';
+        if (catFilter) catFilter.value = 'ALL';
+        if (regionFilter) regionFilter.value = 'ALL';
+        applyFilters();
+      });
+    }
+
+    function matchesCredential(p, credType) {
+      if (credType === 'ALL' || !credType) return true;
+      return p.intl_track_category === credType;
+    }
+
+    function matchesRegion(p, reg) {
+      const haystack = [p.international_evidence, p.qualifications, p.bio].join(' ').toLowerCase();
+      if (reg === 'usa') return /usa|united states|us|america|california|boston|new york|georgia|arizona|oregon|mit|stanford|harvard|princeton|purdue|rutgers/i.test(haystack);
+      if (reg === 'uk') return /uk|united kingdom|britain|england|london|oxford|cambridge|edinburgh|manchester/i.test(haystack);
+      if (reg === 'europe') return /france|germany|switzerland|inria|cern|max planck|erasmus|humboldt|paris|nice|eth/i.test(haystack);
+      if (reg === 'asia') return /japan|singapore|china|nanyang|nus|tokyo|kyoto|tsinghua/i.test(haystack);
+      if (reg === 'australia') return /australia|sydney|melbourne|anu/i.test(haystack);
+      if (reg === 'americas') return /canada|toronto|mcgill|waterloo|brazil|mexico/i.test(haystack);
+      return true;
+    }
+
+    function applyFilters() {
+      const q = document.getElementById('intlSearchInput').value.toLowerCase().trim();
+      const sch = document.getElementById('intlSchoolFilter').value;
+      const cred = document.getElementById('intlCredentialFilter').value;
+      const cat = document.getElementById('intlCategoryFilter')?.value || 'ALL';
+      const reg = document.getElementById('intlRegionFilter')?.value || 'ALL';
+
+      filteredIntl = intlProfiles.filter(p => {
+        if (sch !== 'ALL' && p.school !== sch) return false;
+        if (cred !== 'ALL' && !matchesCredential(p, cred)) return false;
+        if (cat !== 'ALL' && p.primary_category !== cat) return false;
+        if (reg !== 'ALL' && !matchesRegion(p, reg)) return false;
+        if (q) {
+          const haystack = `${p.name} ${p.designation} ${p.school} ${p.qualifications} ${p.international_evidence} ${p.bio}`.toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      renderCards();
+    }
+
+    function renderCards() {
+      document.getElementById('intlCount').textContent = `Showing ${filteredIntl.length} of ${intlProfiles.length} faculty with international experience`;
+      const container = document.getElementById('intlCardsGrid');
+
+      if (filteredIntl.length === 0) {
+        container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 3rem; color: var(--text-muted);">No international profiles matching your search filter.</div>`;
+        return;
+      }
+
+      container.innerHTML = filteredIntl.map(p => `
+        <div class="faculty-card" onclick="window.location.href='profile.html?id=${p.id}'">
+          <span class="badge-intl"><i class="fa-solid fa-globe"></i> Global Track</span>
+          <div class="card-header-bar">
+            <img src="${p.image_url}" alt="${p.name}" class="profile-avatar" onerror="this.src='https://chanakyauniversity.edu.in/wp-content/uploads/2026/02/default-img.jpg'">
+            <div class="profile-basic">
+              <h3>${p.name}</h3>
+              <p class="designation">${p.designation}</p>
+            </div>
+          </div>
+          <div class="card-body">
+            <span class="school-tag">${p.school.replace('School of ', '')}</span>
+            <strong style="font-size: 0.85rem; color: var(--primary);"><i class="fa-solid fa-graduation-cap"></i> ${p.qualifications}</strong>
+            <p class="bio-snippet" style="-webkit-line-clamp: 4; color: #334155;"><strong>Intl Highlights:</strong> ${p.international_evidence}</p>
+          </div>
+          <div class="card-footer">
+            <span style="color: var(--accent-gold); font-weight: 700;">${p.primary_category}</span>
+            <span class="view-profile-link">View Full Profile <i class="fa-solid fa-arrow-right"></i></span>
+          </div>
+        </div>
+      `).join('');
+    }
+  </script>
+  <script src="upload.js"></script>
+</body>
+</html>

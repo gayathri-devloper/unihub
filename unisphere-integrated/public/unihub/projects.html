@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Research Projects & Grants | Chanakya University</title>
+  <!-- Google Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=1785563213">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-section">
+        <div class="brand-logo-badge">
+          <img src="logo.svg" alt="Chanakya University Logo" class="brand-logo-img" onerror="this.src='logo.jpg'">
+        </div>
+        <div class="brand-text">
+          <h1>Chanakya University</h1>
+          <p>Research Projects & Sponsored Grants Portal</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i> Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Bar -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-link"><i class="fa-solid fa-users"></i> Faculty Directory</a>
+        <a href="projects.html" class="nav-link active"><i class="fa-solid fa-flask"></i> Research Projects</a>
+        <a href="publications.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Publications & Papers</a>
+        <a href="international.html" class="nav-link"><i class="fa-solid fa-globe"></i> International Collaborations</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Projects Layout -->
+  <main class="main-layout">
+
+    <div class="page-heading">
+      <h2>Research Projects &amp; Grants Dashboard</h2>
+      <p>Funded projects and open-source repositories, with investigators, agencies and grant details.</p>
+    </div>
+
+    <!-- KPI Metric Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card purple">
+        <div class="kpi-icon"><i class="fa-solid fa-flask-vial"></i></div>
+        <div class="kpi-info">
+          <h4>Total Projects & Grants</h4>
+          <div class="kpi-num" id="kpiTotalProjects">0</div>
+        </div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-icon"><i class="fa-solid fa-building-columns"></i></div>
+        <div class="kpi-info">
+          <h4>Funding Agencies & Partners</h4>
+          <div class="kpi-num" id="kpiAgencies">0</div>
+        </div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+        <div class="kpi-info">
+          <h4>Investigating Faculty</h4>
+          <div class="kpi-num" id="kpiFacultyInvestigators">0</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visual Analytics Charts Grid -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-column"></i> Projects Distribution by Official School</h3>
+        <div class="chart-container">
+          <canvas id="projectsChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-pie"></i> Projects Distribution by Category Domain</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search & Filter Controls -->
+    <section class="filter-section">
+      <div class="search-bar-row">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="projectSearchInput" placeholder="Search projects by title, investigator name, funding agency, keywords...">
+        </div>
+      </div>
+
+      <div class="filter-grid">
+        <div class="filter-group">
+          <label>Official School</label>
+          <select id="projectSchoolFilter" class="filter-select">
+            <option value="ALL">All Schools</option>
+            <option value="School of Arts, Humanities and Social Sciences">School of Arts, Humanities and Social Sciences</option>
+            <option value="School of Management Sciences">School of Management Sciences</option>
+            <option value="School of Mathematics and Natural Sciences">School of Mathematics and Natural Sciences</option>
+            <option value="School of Law, Governance and Public Policy">School of Law, Governance and Public Policy</option>
+            <option value="School of Biosciences">School of Biosciences</option>
+            <option value="School of Engineering">School of Engineering</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label>Category Domain</label>
+          <select id="projectCategoryFilter" class="filter-select">
+            <option value="ALL">All Categories</option>
+            <option value="Law">Law</option>
+            <option value="Public Health">Public Health</option>
+            <option value="Sustainability">Sustainability</option>
+            <option value="Science Tech">Science Tech</option>
+            <option value="Humanities">Humanities</option>
+            <option value="IKS">IKS</option>
+            <option value="Management">Management</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <div class="results-meta">
+      <span id="projectsCount">Showing 0 research projects</span>
+    </div>
+
+    <div class="table-scroll-hint">
+      <i class="fa-solid fa-arrows-left-right"></i> Scroll table horizontally to view full details
+    </div>
+
+    <!-- Data Table -->
+    <div class="data-table-container">
+      <table class="custom-data-table">
+        <thead>
+          <tr>
+            <th style="width: 32%;">Project Title & Overview</th>
+            <th style="width: 18%;">Principal Investigator</th>
+            <th style="width: 22%;">School & Domain</th>
+            <th style="width: 16%;">Granting Agency</th>
+            <th style="width: 12%;">Grant & Status</th>
+          </tr>
+        </thead>
+        <tbody id="projectsTableBody">
+          <!-- Dynamically populated -->
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let allData = [];
+    let allProjectsList = [];
+    let filteredProjects = [];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const btn = document.getElementById('mobileMenuBtn');
+      const nav = document.querySelector('.main-nav');
+      if (btn && nav) {
+        btn.addEventListener('click', () => {
+          nav.classList.toggle('mobile-active');
+          btn.innerHTML = nav.classList.contains('mobile-active')
+            ? '<i class="fa-solid fa-xmark"></i> Close'
+            : '<i class="fa-solid fa-bars"></i> Menu';
+        });
+      }
+
+      try {
+        const resp = await fetch('data.json?v=' + Date.now());
+        allData = await resp.json();
+
+        // uploads whose PI is not a directory profile (stored in the database)
+        let unlinked = { projects: [] };
+        try { unlinked = await (await fetch('/api/unlinked?v=' + Date.now())).json(); } catch (e) {}
+
+        allProjectsList = [];
+        allData.forEach(p => {
+          (p.projects_list || []).forEach(pj => {
+            allProjectsList.push({
+              ...pj,
+              faculty_id: p.id,
+              faculty_name: p.name,
+              school: p.school,
+              category: pj.category || p.primary_category || 'Humanities'
+            });
+          });
+        });
+
+        (unlinked.projects || []).forEach(pj => {
+          allProjectsList.push({ ...pj, school: pj.school || '', category: pj.category || 'Humanities' });
+        });
+        // newest uploads first, then the original records in their usual order
+        allProjectsList = [
+          ...allProjectsList.filter(p => p.submitted_at).sort((a, b) => b.submitted_at.localeCompare(a.submitted_at)),
+          ...allProjectsList.filter(p => !p.submitted_at)
+        ];
+
+        filteredProjects = [...allProjectsList];
+
+        updateKPIs();
+        renderChart();
+        renderTable();
+        setupFilters();
+      } catch (err) {
+        console.error("Error loading project data:", err);
+      }
+    });
+
+    function updateKPIs() {
+      document.getElementById('kpiTotalProjects').textContent = allProjectsList.length;
+      
+      const agencies = new Set(allProjectsList.map(p => p.funding_agency));
+      document.getElementById('kpiAgencies').textContent = agencies.size;
+
+      const facultySet = new Set(allProjectsList.map(p => p.faculty_id || p.faculty_name));
+      document.getElementById('kpiFacultyInvestigators').textContent = facultySet.size;
+    }
+
+        function handleHoverPointer(e, elements) {
+      e.native.target.style.cursor = elements.length ? 'pointer' : 'default';
+    }
+
+    function renderChart() {
+      // 1. Projects by Official School Chart
+      const schoolCounts = {};
+      allProjectsList.forEach(p => {
+        const sch = p.school ? p.school.replace('School of ', '') : 'Other';
+        schoolCounts[sch] = (schoolCounts[sch] || 0) + 1;
+      });
+
+      const ctxSchool = document.getElementById('projectsChart').getContext('2d');
+      new Chart(ctxSchool, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(schoolCounts),
+          datasets: [{
+            label: 'Projects Count',
+            data: Object.values(schoolCounts),
+            backgroundColor: '#002561',
+            hoverBackgroundColor: '#b8860b',
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const label = Object.keys(schoolCounts)[elements[0].index];
+              const fullSchool = allProjectsList.find(p => p.school && p.school.includes(label))?.school;
+              if (fullSchool) {
+                document.getElementById('projectSchoolFilter').value = fullSchool;
+                applyProjectFilters();
+                document.getElementById('projectsTableBody').scrollIntoView({ behavior: 'smooth' });
+              }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Research Projects`,
+                    ` 👉 Click bar to filter projects table below`
+                  ];
+                }
+              }
+            }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b', font: { weight: 'bold', size: 10 } } },
+            y: { ticks: { color: '#64748b' } }
+          }
+        }
+      });
+
+      // 2. Projects by Category Domain Chart
+      const catCounts = {};
+      allProjectsList.forEach(p => {
+        const cat = p.category || 'Humanities';
+        catCounts[cat] = (catCounts[cat] || 0) + 1;
+      });
+
+      const ctxCat = document.getElementById('categoryChart').getContext('2d');
+      const catColors = {
+        'Science Tech': '#0284c7',
+        'Public Health': '#059669',
+        'Humanities': '#7c3aed',
+        'Sustainability': '#10b981',
+        'Management': '#b8860b',
+        'IKS': '#d97706',
+        'Law': '#dc2626'
+      };
+
+      const labels = Object.keys(catCounts);
+      const bgColors = labels.map(l => catColors[l] || '#64748b');
+
+      new Chart(ctxCat, {
+        type: 'doughnut',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: Object.values(catCounts),
+            backgroundColor: bgColors,
+            borderWidth: 2,
+            borderColor: '#ffffff'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          onHover: handleHoverPointer,
+          onClick: (e, elements) => {
+            if (elements.length > 0) {
+              const catName = Object.keys(catCounts)[elements[0].index];
+              document.getElementById('projectCategoryFilter').value = catName;
+              applyProjectFilters();
+              document.getElementById('projectsTableBody').scrollIntoView({ behavior: 'smooth' });
+            }
+          },
+          plugins: {
+            legend: {
+              position: window.innerWidth < 768 ? 'bottom' : 'right',
+              labels: {
+                boxWidth: 12,
+                font: { size: 11, weight: 'bold' },
+                color: '#334155'
+              }
+            },
+            tooltip: {
+              callbacks: {
+                label: function(context) {
+                  return [
+                    ` ${context.label}: ${context.raw} Research Projects`,
+                    ` 👉 Click slice to filter projects table below`
+                  ];
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function setupFilters() {
+      document.getElementById('projectSearchInput').addEventListener('input', applyProjectFilters);
+      document.getElementById('projectSchoolFilter').addEventListener('change', applyProjectFilters);
+      document.getElementById('projectCategoryFilter').addEventListener('change', applyProjectFilters);
+    }
+
+    function applyProjectFilters() {
+      const q = document.getElementById('projectSearchInput').value.toLowerCase().trim();
+      const sch = document.getElementById('projectSchoolFilter').value;
+      const cat = document.getElementById('projectCategoryFilter').value;
+
+      filteredProjects = allProjectsList.filter(pj => {
+        if (sch !== 'ALL' && pj.school !== sch) return false;
+        if (cat !== 'ALL' && pj.category !== cat) return false;
+        if (q) {
+          const haystack = `${pj.title} ${pj.faculty_name} ${pj.school} ${pj.funding_agency} ${pj.description}`.toLowerCase();
+          if (!haystack.includes(q)) return false;
+        }
+        return true;
+      });
+
+      renderTable();
+    }
+
+    function renderTable() {
+      document.getElementById('projectsCount').textContent = `Showing ${filteredProjects.length} of ${allProjectsList.length} research projects`;
+      const tbody = document.getElementById('projectsTableBody');
+      
+      if (filteredProjects.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--text-muted);">No projects matching your search filter.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = filteredProjects.map(pj => `
+        <tr>
+          <td>
+            <strong style="color: var(--primary); font-size: 0.95rem;">${pj.title}</strong>${pj.submitted_at ? ' <span class="new-badge">New</span>' : ''}
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.35rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;">${pj.description}</p>
+            ${pj.link ? `<a class="upload-link" href="${pj.link}" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i> View on GitHub</a>` : ''}
+          </td>
+          <td>
+            ${pj.faculty_id
+              ? `<a href="profile.html?id=${pj.faculty_id}" style="color: var(--primary); font-weight: 800; text-decoration: underline;">${pj.faculty_name}</a>`
+              : `<span style="color: var(--primary); font-weight: 800;">${pj.faculty_name}</span>`}
+          </td>
+          <td>
+            <span class="school-tag" style="font-size: 0.7rem; padding: 0.2rem 0.5rem; margin-bottom: 0.25rem;">${(pj.school || '').replace('School of ', '')}</span>
+            <div><span class="badge-cat" style="font-size: 0.65rem;">${pj.category}</span></div>
+          </td>
+          <td><strong style="color: #047857; font-size: 0.85rem;">${pj.funding_agency}</strong></td>
+          <td>
+            <span style="display: block; font-size: 0.8rem; font-weight: 700; color: var(--accent-gold);">${pj.grant_amount}</span>
+            <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted);">${pj.status}</span>
+          </td>
+        </tr>
+      `).join('');
+    }
+  </script>
+  <script src="upload.js"></script>
+</body>
+</html>

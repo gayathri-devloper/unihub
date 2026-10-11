@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Chanakya University - Faculty & Research Directory</title>
+  <!-- Google Fonts -->
+  <link rel="icon" type="image/svg+xml" href="logo.svg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&display=swap" rel="stylesheet">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css?v=1785563213">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-top">
+      <div class="brand-section">
+        <div class="brand-logo-badge">
+          <img src="logo.svg" alt="Chanakya University Logo" class="brand-logo-img" onerror="this.src='logo.jpg'">
+        </div>
+        <div class="brand-text">
+          <h1>Chanakya University</h1>
+          <p>Faculty & Research Directory Dashboard</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+          <i class="fa-solid fa-bars"></i> Menu
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Menu Bar -->
+    <nav class="main-nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-link active"><i class="fa-solid fa-users"></i> Faculty Directory</a>
+        <a href="projects.html" class="nav-link"><i class="fa-solid fa-flask"></i> Research Projects</a>
+        <a href="publications.html" class="nav-link"><i class="fa-solid fa-book-bookmark"></i> Publications & Papers</a>
+        <a href="international.html" class="nav-link"><i class="fa-solid fa-globe"></i> International Collaborations</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Layout -->
+  <main class="main-layout">
+
+    <div class="page-heading">
+      <h2>Faculty &amp; Researcher Directory Dashboard</h2>
+      <p>Interactive faculty profiles, research expertise, publications, projects and international experience.</p>
+    </div>
+
+    <!-- KPI Metric Cards -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-icon"><i class="fa-solid fa-users-rectangle"></i></div>
+        <div class="kpi-info">
+          <h4>Total Records</h4>
+          <div class="kpi-num" id="kpiTotal">0</div>
+        </div>
+      </div>
+      <div class="kpi-card gold">
+        <div class="kpi-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+        <div class="kpi-info">
+          <h4>Faculty Members</h4>
+          <div class="kpi-num" id="kpiFaculty">0</div>
+        </div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-icon"><i class="fa-solid fa-flask-vial"></i></div>
+        <div class="kpi-info">
+          <h4>Researchers / Fellows</h4>
+          <div class="kpi-num" id="kpiResearchers">0</div>
+        </div>
+      </div>
+      <div class="kpi-card purple">
+        <div class="kpi-icon"><i class="fa-solid fa-globe"></i></div>
+        <div class="kpi-info">
+          <h4>Intl Experience / Collab</h4>
+          <div class="kpi-num" id="kpiIntl">0</div>
+        </div>
+      </div>
+    </section>
+
+        <!-- Visual Analytics Charts (6 Interactive Grid Charts) -->
+    <section class="charts-grid">
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-column"></i> Distribution by Official School</h3>
+        <div class="chart-container">
+          <canvas id="schoolChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-chart-pie"></i> Distribution by Domain Category</h3>
+        <div class="chart-container">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-diagram-project"></i> Cluster Focus Breakdown</h3>
+        <div class="chart-container">
+          <canvas id="clusterChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-earth-americas"></i> International Exposure by School</h3>
+        <div class="chart-container">
+          <canvas id="intlSchoolChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-graduation-cap"></i> Academic Qualifications Breakdown</h3>
+        <div class="chart-container">
+          <canvas id="qualChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-book-bookmark"></i> Publications Volume by School</h3>
+        <div class="chart-container">
+          <canvas id="pubVolChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-briefcase"></i> Projects Volume by School</h3>
+        <div class="chart-container">
+          <canvas id="projVolChart"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3><i class="fa-solid fa-id-badge"></i> Faculty by Designation</h3>
+        <div class="chart-container">
+          <canvas id="desigChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filter & Search Toolbar -->
+    <section class="filter-section">
+      <!-- Search Input -->
+      <div class="search-bar-row" style="display: flex; gap: 1rem; align-items: center;">
+        <div class="search-input-wrapper" style="flex: 1;">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search by name, expertise, bio, publications, keywords...">
+        </div>
+        <button id="resetFiltersBtn" class="download-btn" style="background: #e2e8f0; color: var(--primary); font-size: 0.85rem; padding: 0.8rem 1.25rem; white-space: nowrap;">
+          <i class="fa-solid fa-rotate-left"></i> Clear All Filters
+        </button>
+      </div>
+
+      <!-- Filter Controls Grid -->
+      <div class="filter-grid" style="margin-top: 1rem;">
+        <!-- Type Filter -->
+        <div class="filter-group">
+          <label>Type</label>
+          <select id="typeFilter" class="filter-select">
+            <option value="ALL">All Types (Faculty & Researchers)</option>
+            <option value="Faculty">Faculty Only</option>
+            <option value="Researcher">Researchers Only</option>
+          </select>
+        </div>
+
+        <!-- School Filter -->
+        <div class="filter-group">
+          <label>Official School</label>
+          <select id="schoolFilter" class="filter-select">
+            <option value="ALL">All Schools</option>
+            <option value="School of Arts, Humanities and Social Sciences">School of Arts, Humanities and Social Sciences</option>
+            <option value="School of Management Sciences">School of Management Sciences</option>
+            <option value="School of Mathematics and Natural Sciences">School of Mathematics and Natural Sciences</option>
+            <option value="School of Law, Governance and Public Policy">School of Law, Governance and Public Policy</option>
+            <option value="School of Biosciences">School of Biosciences</option>
+            <option value="School of Engineering">School of Engineering</option>
+          </select>
+        </div>
+
+        <!-- Category Pills -->
+        <div class="filter-group" style="flex: 1; min-width: 300px;">
+          <label>Domain Category</label>
+          <div class="pills-group" id="categoryPills">
+            <button class="pill-btn active" data-cat="ALL">All</button>
+            <button class="pill-btn" data-cat="Law">Law</button>
+            <button class="pill-btn" data-cat="Public Health">Public Health</button>
+            <button class="pill-btn" data-cat="Sustainability">Sustainability</button>
+            <button class="pill-btn" data-cat="Science Tech">Science Tech</button>
+            <button class="pill-btn" data-cat="Humanities">Humanities</button>
+            <button class="pill-btn" data-cat="IKS">IKS</button>
+            <button class="pill-btn" data-cat="Management">Management</button>
+          </div>
+        </div>
+
+        <!-- Cluster Pills -->
+        <div class="filter-group">
+          <label>Cluster Focus</label>
+          <div class="pills-group" id="clusterPills">
+            <button class="pill-btn active" data-cluster="ALL">All Clusters</button>
+            <button class="pill-btn" data-cluster="Engineering &amp; Science Tech">Engineering &amp; Science Tech</button>
+            <button class="pill-btn" data-cluster="Management &amp; Humanities">Management &amp; Humanities</button>
+            <button class="pill-btn" data-cluster="Health &amp; Life Sciences">Health &amp; Life Sciences</button>
+            <button class="pill-btn" data-cluster="Law">Law</button>
+            <button class="pill-btn" data-cluster="IKS">IKS</button>
+            <button class="pill-btn" data-cluster="Sustainability">Sustainability</button>
+          </div>
+        </div>
+
+        <!-- International Experience Toggle -->
+        <div class="filter-group" style="justify-content: flex-end;">
+          <label class="toggle-switch">
+            <input type="checkbox" id="intlToggle">
+            <span><i class="fa-solid fa-earth-americas"></i> International Experience Only</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Header -->
+    <div class="results-meta">
+      <span id="resultsCount">Showing 0 profiles</span>
+    </div>
+
+    <!-- Cards Grid -->
+    <section class="cards-grid" id="cardsGrid">
+      <!-- Dynamically populated -->
+    </section>
+
+  </main>
+
+  <script src="app.js?v=1785563213"></script>
+  <script src="upload.js"></script>
+</body>
+</html>
